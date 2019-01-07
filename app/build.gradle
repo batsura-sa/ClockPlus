@@ -102,6 +102,7 @@ dependencies {
     compileOnly 'com.google.auto.value:auto-value:1.2'
     annotationProcessor 'com.google.auto.value:auto-value:1.2'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.android.support:design:25.1.1'
     implementation 'com.android.support:appcompat-v7:25.1.0'
     implementation 'com.android.support:design:25.1.0'
     implementation 'com.android.support:recyclerview-v7:25.1.0'
