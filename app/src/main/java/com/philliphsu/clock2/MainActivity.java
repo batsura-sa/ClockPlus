@@ -45,6 +45,7 @@ import com.philliphsu.clock2.alarms.ui.AlarmsFragment;
 import com.philliphsu.clock2.data.BaseItemCursor;
 import com.philliphsu.clock2.list.RecyclerViewFragment;
 import com.philliphsu.clock2.settings.SettingsActivity;
+import com.philliphsu.clock2.stopwatch.ui.MayakFragment;
 import com.philliphsu.clock2.stopwatch.ui.StopwatchFragment;
 import com.philliphsu.clock2.timepickers.Utils;
 import com.philliphsu.clock2.timers.ui.TimersFragment;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
     public static final int    PAGE_ALARMS          = 0;
     public static final int    PAGE_TIMERS          = 1;
     public static final int    PAGE_STOPWATCH       = 2;
+    public static final int    PAGE_MAYAK           = 3;
     public static final int    REQUEST_THEME_CHANGE = 5;
     public static final String EXTRA_SHOW_PAGE      = "com.philliphsu.clock2.extra.SHOW_PAGE";
 
@@ -164,6 +166,7 @@ public class MainActivity extends BaseActivity {
         setTabIcon(PAGE_ALARMS, R.drawable.ic_alarm_24dp, tabIconColor);
         setTabIcon(PAGE_TIMERS, R.drawable.ic_timer_24dp, tabIconColor);
         setTabIcon(PAGE_STOPWATCH, R.drawable.ic_stopwatch_24dp, tabIconColor);
+        setTabIcon(PAGE_MAYAK, R.drawable.ic_mayak_24dp, tabIconColor);
 
         // TODO: @OnCLick instead.
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -349,6 +352,9 @@ public class MainActivity extends BaseActivity {
                     return new TimersFragment();
                 case PAGE_STOPWATCH:
                     return new StopwatchFragment();
+                case PAGE_MAYAK:
+                    return new MayakFragment();
+
                 default:
                     throw new IllegalStateException("No fragment can be instantiated for position " + position);
             }
@@ -369,7 +375,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         public Fragment getFragment(int position) {
