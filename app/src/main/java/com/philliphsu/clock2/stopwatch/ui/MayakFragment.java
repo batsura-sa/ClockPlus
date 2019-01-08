@@ -19,8 +19,12 @@
 
 package com.philliphsu.clock2.stopwatch.ui;
 
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +37,8 @@ import com.philliphsu.clock2.stopwatch.Lap;
 import com.philliphsu.clock2.stopwatch.data.LapCursor;
 import com.philliphsu.clock2.stopwatch.data.LapsCursorLoader;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by Sergey Batsura 08.01.2019
  */
@@ -43,6 +49,13 @@ public class MayakFragment extends RecyclerViewFragment<
         LapsAdapter> {
     private static final String TAG = "MayakFragment";
 
+    private WeakReference<FloatingActionButton> mActivityFab;
+    private Drawable mStartDrawable;
+    private Drawable mStopDrawable;
+
+    private SharedPreferences mPrefs;
+
+
 
     /**
      * This is called only when a new instance of this Fragment is being created,
@@ -52,6 +65,9 @@ public class MayakFragment extends RecyclerViewFragment<
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mStartDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_start_24dp);
+        mStopDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_stop_24dp);
     }
 
     @Nullable
@@ -65,6 +81,8 @@ public class MayakFragment extends RecyclerViewFragment<
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mActivityFab = new WeakReference<>((FloatingActionButton) getActivity().findViewById(R.id.fab));
     }
 
     /**
@@ -99,6 +117,12 @@ public class MayakFragment extends RecyclerViewFragment<
 
     @Override
     public void onFabClick() {
+        final boolean running = false;
+        syncFabIconWithStopwatchState(!running/*invert the current state*/);
+    }
+
+    private void syncFabIconWithStopwatchState(boolean running) {
+        mActivityFab.get().setImageDrawable(running ? mStopDrawable : mStartDrawable);
     }
 
     @Override
@@ -110,10 +134,6 @@ public class MayakFragment extends RecyclerViewFragment<
         return new LapsAdapter();
     }
 
-    @Override
-    protected int contentLayout() {
-        return R.layout.fragment_stopwatch;
-    }
 
 
     @Override
