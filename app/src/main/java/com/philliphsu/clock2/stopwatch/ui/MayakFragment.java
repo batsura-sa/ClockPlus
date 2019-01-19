@@ -24,6 +24,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.util.Log;
@@ -36,6 +38,7 @@ import com.philliphsu.clock2.list.RecyclerViewFragment;
 import com.philliphsu.clock2.stopwatch.Lap;
 import com.philliphsu.clock2.stopwatch.data.LapCursor;
 import com.philliphsu.clock2.stopwatch.data.LapsCursorLoader;
+import com.philliphsu.clock2.util.DelayedSnackbarHandler;
 
 import java.lang.ref.WeakReference;
 
@@ -127,6 +130,12 @@ public class MayakFragment extends RecyclerViewFragment<
 
     @Override
     public void onPageSelected() {
+
+        mActivityFab.get().setImageDrawable(mStartDrawable);
+
+        DelayedSnackbarHandler.prepareMessage("Тестовое сообщение");
+        DelayedSnackbarHandler.makeAndShow(getView());
+
     }
 
     @Override
