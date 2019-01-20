@@ -55,6 +55,7 @@ public class MayakFragment extends RecyclerViewFragment<
     private WeakReference<FloatingActionButton> mActivityFab;
     private Drawable mStartDrawable;
     private Drawable mStopDrawable;
+    private boolean running;
 
     private SharedPreferences mPrefs;
 
@@ -71,6 +72,7 @@ public class MayakFragment extends RecyclerViewFragment<
 
         mStartDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_start_24dp);
         mStopDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.ic_stop_24dp);
+        running = false;
     }
 
     @Nullable
@@ -120,8 +122,14 @@ public class MayakFragment extends RecyclerViewFragment<
 
     @Override
     public void onFabClick() {
-        final boolean running = false;
-        syncFabIconWithStopwatchState(!running/*invert the current state*/);
+        running = !running;
+        syncFabIconWithStopwatchState(running/*invert the current state*/);
+        if ( running )
+            DelayedSnackbarHandler.prepareMessage("Сигналы радио Маяк активированы!");
+        else
+            DelayedSnackbarHandler.prepareMessage("Сигналы радио Маяк остановлены!");
+
+        DelayedSnackbarHandler.makeAndShow(getView());
     }
 
     private void syncFabIconWithStopwatchState(boolean running) {
@@ -133,7 +141,7 @@ public class MayakFragment extends RecyclerViewFragment<
 
         mActivityFab.get().setImageDrawable(mStartDrawable);
 
-        DelayedSnackbarHandler.prepareMessage("Тестовое сообщение");
+        DelayedSnackbarHandler.prepareMessage("Сигналы радио Маяк. Каждый час с 10 до 19");
         DelayedSnackbarHandler.makeAndShow(getView());
 
     }
